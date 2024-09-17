@@ -5,15 +5,21 @@ const Header: React.FC = () => {
     return (
         <>
             <header className="header">
-                <h1 className="header__title">Главная</h1>
+              <div className="container">
+                <Link to="/">
+                  <div className="header__logo"></div>
+                </Link>
+
                 <div className="header__nav">
-                    <Link to="/user-management">
-                        <span className="header__nav-item">Admin</span>
-                    </Link>
-                    <Link to="/accounting">
-                        <span className="header__nav-item">Log in</span>
-                    </Link>
+                  <Link to="/user-management">
+                    <span className="header__nav-item">Управление пользователями</span>
+                  </Link>
+                  <Link to="/accounting">
+                    <span className="header__nav-item">Вход</span>
+                  </Link>
                 </div>
+              </div>
+
             </header>
         </>
     )

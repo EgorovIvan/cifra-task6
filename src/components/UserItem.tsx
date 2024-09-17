@@ -1,25 +1,29 @@
 import * as React from "react";
+import {User} from "../pages/UserManagement.tsx";
 
 interface Props {
-    item: {
-        id: string;
-        name: string;
-        email: string;
-    }
+  item: User;
+  handleOpenModal: (id) => void;
+  handleOpenModalConfirm: (id) => void;
 }
 
-const UsersList: React.FC<Props> = ({item}: Props) => {
+const UserItem: React.FC<Props> = ({item, handleOpenModal, handleOpenModalConfirm}: Props) => {
 
-
-    return (
-        <>
-            <li className="list-vzn__block-item">
-                <h2>{item.id}</h2>
-                <p><span>Имя пользователя</span>{item.name}</p>
-                <p><span>Email:</span>{item.email}</p>
-            </li>
-        </>
-    )
+  return (
+    <>
+      <li className="management__row">
+        <div className="management__row-item">{item.name}</div>
+        <div className="management__row-item">{item.email}</div>
+        <div className="management__row-item">{item.phone}</div>
+        <div className="management__row-item">
+          <div className="management__row-img-edit" onClick={() => handleOpenModal(item.id)}></div>
+        </div>
+        <div className="management__row-item">
+          <div className="management__row-img-remove" onClick={() => handleOpenModalConfirm(item.id)}></div>
+        </div>
+      </li>
+    </>
+  )
 }
 
-export default UsersList
+export default UserItem

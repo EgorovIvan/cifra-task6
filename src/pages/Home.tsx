@@ -8,6 +8,9 @@ const Home: React.FC = () => {
         <>
             <Header/>
             <main className="main">
+              <div className="container">
+                <h1 className="main__title">My APP</h1>
+              </div>
 
             </main>
             <Footer/>

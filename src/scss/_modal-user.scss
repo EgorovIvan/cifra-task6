@@ -1,0 +1,90 @@
+.modal-user {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: $bg-gray-900;
+  z-index: 10;
+  transition: opacity 2s;
+
+  &__form {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.625rem;
+    width: 32rem;
+    height: 24rem;
+    padding: 2rem 6rem;
+    background: $bg-green-80;
+    border-radius: 0.5rem;
+  }
+
+  &__title {
+    margin-bottom: 1rem;
+  }
+
+  &__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 3.13rem;
+    color: $bg-gray-100;
+    font-size: 0.88rem;
+    font-weight: 400;
+    line-height: 100%;
+    letter-spacing: 0%;
+    text-align: left;
+    border: none;
+    border-radius: 6.25rem;
+    background: $bg-brown-197;
+    cursor: pointer;
+    text-transform: uppercase;
+  }
+
+  &__close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    background: url(../assets/close.svg) no-repeat;
+    background-size: contain;
+    cursor: pointer;
+  }
+
+  &__btn:hover,
+  &__btn:focus-visible,
+  &__close:hover,
+  &__close:focus-visible{
+    filter: brightness(1.25);
+    transition: filter .2s;
+  }
+}
+
+.error {
+  position: absolute;
+  bottom: 2px;
+  right: 6px;
+  color: red;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0.5px;
+  text-align: right;
+}
+
+.error-border {
+  outline: none;
+  border: 1px solid red;
+}
+
+.error-border:focus {
+  border-color: red;
+}

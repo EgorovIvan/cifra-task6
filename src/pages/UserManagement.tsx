@@ -1,81 +1,345 @@
 import Header from "../components/Header.tsx";
 import Footer from "../components/Footer.tsx";
 import {useImmer} from "use-immer";
-import UserForm from "../components/UserForm.tsx";
-// import {v4 as uuidv4} from 'uuid';
-import {useState} from "react";
+import ModalUser from "../components/ModalUser.tsx";
 import UsersList from "../components/UsersList.tsx";
+import Button from "../components/Button.tsx";
+import {v4 as uuid} from 'uuid';
+import {useEffect} from "react";
+import axios, {AxiosResponse} from 'axios';
+import ModalConfirm from "../components/ModalConfirm.tsx";
 
-// import {Link} from "react-router-dom";
 
-const initialUsersList = [
-    { id: '0', name: 'Bellies', email: 'gmail@gmail.com' },
-    { id: '1', name: 'Lunar', email: 'gmail@gmail.com' },
-    { id: '2', name: 'Terraco', email: 'gmail@gmail.com' },
-];
-
-interface User {
-    id: string;
-    name: string;
-    email: string;
+interface UserApi {
+  id: number;
+  name: string;
+  username: string;
+  email: string;
+  address: {
+    "street": string,
+    "suite": string,
+    "city": string,
+    "zipcode": string,
+    "geo": {
+      "lat": string,
+      "lng": string
+    }
+  },
+  "phone": string,
+  "website": string,
+  "company": {
+    "name": string,
+    "catchPhrase": string,
+    "bs": string
+  };
 }
 
-interface Action {
-    open_form: boolean
+export interface User {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
 }
 
 const UserManagement: React.FC = () => {
 
-    // @ts-ignore
-    const [users, setUsers] = useState<User[]>([initialUsersList])
-    const [openForm, updateOpenForm] = useImmer<Action>({open_form: false})
+  const [users, updateUsers] = useImmer([])
+  const [showModal, updateShowModal] = useImmer({
+    show_modal_add: false,
+    show_modal_edit: false,
+    show_modal_remove: false,
+  })
 
-    /* Открыть форму добавления пользователя */
-    const openFormAddUser = (): void => {
-        updateOpenForm((draft) => {
-            draft.open_form = true
-        })
+  // возможно лишние стейты
+  const [userData, updateUserData] = useImmer<User>({id: "", name: "", email: "", phone: ""});
+  const [editUserData, updateEditUserData] = useImmer<User>({id: "", name: "", email: "", phone: ""});
+  const [removeUserData, updateRemoveUserData] = useImmer<User>({id: "", name: "", email: "", phone: ""});
+
+  /* GET - запрос */
+  const fetchUsersData = async () => {
+
+    try {
+
+      const response: AxiosResponse = await axios.get('https://jsonplaceholder.typicode.com/users');
+
+      const responseData: UserApi = response.data;
+
+      const initialUsersList = []
+
+      for (let item of responseData) {
+        const obj: User = {
+          id: item.id.toString(),
+          name: item.name,
+          email: item.email,
+          phone: item.phone,
+        }
+
+        initialUsersList.push(obj)
+      }
+
+      updateUsers((draft) => {
+        draft.push(...initialUsersList)
+      })
+
+      localStorage.setItem('users', JSON.stringify(initialUsersList))
+
+    } catch (error) {
+
+      if (axios.isAxiosError(error)) {
+        // Handle Axios-specific errors
+
+        console.error("Axios error:", error.message);
+      } else {
+        // Handle general errors
+
+        console.error("General error:", error.message);
+      }
+    }
+  };
+
+  /* Открыть форму добавления пользователя */
+  const handleOpenModalAddUser = (): void => {
+    updateShowModal((draft) => {
+      draft.show_modal_add = true
+    })
+
+    /* генерация id */
+    updateUserData(draft => {
+      draft.id = uuid()
+    })
+  }
+
+  /* Закрыть форму добавления пользователя */
+  const handleCloseModalAddUser = (): void => {
+    updateShowModal((draft) => {
+      draft.show_modal_add = false
+    })
+  }
+
+  /* Получить имя нового пользователя из формы */
+  const getName = (name): void => {
+    updateUserData((draft) => {
+      draft.name = name
+    })
+  }
+
+  /* Получить email нового пользователя из формы */
+  const getEmail = (email): void => {
+    updateUserData((draft) => {
+      draft.email = email
+    })
+  }
+
+  /* Получить номер телефона нового пользователя из формы */
+  const getPhone = (phone): void => {
+    updateUserData((draft) => {
+      draft.phone = phone
+    })
+  }
+
+  /* Добавить нового пользователя */
+  const addUser = (): void => {
+
+    updateUsers((draft) => {
+      draft.push(userData)
+    })
+
+    localStorage.setItem('users', JSON.stringify([...users, userData]))
+
+    /* закрытие модального окна */
+    updateShowModal((draft) => {
+      draft.show_modal_add = false
+    })
+  }
+
+  /* Открыть форму изменения данных пользователя */
+  const handleOpenModalEditUser = (id: string): void => {
+    updateShowModal((draft) => {
+      draft.show_modal_edit = true
+    })
+
+    const find = users.find((item) => item.id === id)
+
+    if (find) {
+      updateEditUserData((draft) => {
+        draft.id = find.id
+        draft.name = find.name
+        draft.email = find.email
+        draft.phone = find.phone
+      })
+
+      updateUserData((draft) => {
+        draft.id = find.id
+        draft.name = find.name
+        draft.email = find.email
+        draft.phone = find.phone
+      })
+    } else {
+      alert("Ошибка в данных")
+    }
+  }
+
+  /* Закрыть форму изменения данных пользователя */
+  const handleCloseModalEditUser = (): void => {
+    updateShowModal((draft) => {
+      draft.show_modal_edit = false
+    })
+  }
+
+  const editUser = (id: string): void => {
+
+    const findIndex: number = users.findIndex((obj) => obj.id === id)
+
+    updateUsers((draft) => {
+      draft.splice(findIndex, 1, userData)
+    })
+
+    // let localArray = [...users] - не помогло
+    /* В зависимости от вашей ситуации вы можете сделать глубокую копию, чтобы удалить ссылку на хранилище. */
+    let localArray = JSON.parse(JSON.stringify(users));
+
+    localArray.map((obj) => {
+      // return Object.assign(user, modalUser.value);
+      if (obj.id === id) {
+        obj.name = userData.name
+        obj.email = userData.email
+        obj.phone = userData.phone
+      }
+    })
+
+    localStorage.setItem('users', JSON.stringify([...localArray]))
+
+    updateShowModal((draft) => {
+      draft.show_modal_edit = false
+    })
+  }
+
+  /* Открыть форму удаления данных пользователя */
+  const handleOpenModalRemoveUser = (id: string): void => {
+    updateShowModal((draft) => {
+      draft.show_modal_remove = true
+    })
+
+    const find = users.find((item) => item.id === id)
+
+    /* Заполнить state всеми данными для мягкого удаления*/
+    if (find) {
+      updateRemoveUserData((draft) => {
+        draft.id = find.id
+        draft.name = find.name
+        draft.email = find.email
+        draft.phone = find.phone
+      })
+    } else {
+      alert("Ошибка в данных")
+    }
+  }
+
+  /* Закрыть форму удаления данных пользователя */
+  const handleCloseModalRemoveUser = (): void => {
+    updateShowModal((draft) => {
+      draft.show_modal_remove = false
+    })
+  }
+
+  /* Удаление пользователя */
+  const removeUser = (id: string): void => {
+
+    const findIndex: number = users.findIndex((obj) => obj.id === id)
+
+    updateUsers((draft) => {
+      draft.splice(findIndex, 1)
+    })
+
+    let localArray = JSON.parse(JSON.stringify(users)).filter(obj => obj.id !== id);
+
+    localStorage.setItem('users', JSON.stringify([...localArray]))
+
+    updateShowModal((draft) => {
+      draft.show_modal_remove = false
+    })
+  }
+
+  useEffect(() => {
+    if (localStorage.getItem('users')) {
+
+      const usersArray = JSON.parse(localStorage.getItem('users'))
+
+      updateUsers((draft) => {
+        // очистка массива
+        draft.splice(0, users.length)
+        // заполнение массива
+        draft.push(...usersArray)
+      })
+    } else {
+
+      fetchUsersData().then(r =>
+        console.log("Данные загружены")
+      ).catch(
+        e => {
+          console.log(e.message)
+        }
+      );
     }
 
-    const handleCloseForm = (): void => {
-        updateOpenForm((draft) => {
-            draft.open_form = false
-        })
-    }
-    const addUser = (user: User): void => {
-        // updateUsers((draft) => {
-        //     draft.users.push(user)
-        // })
+  }, []);
 
-        setUsers((prevUsers: any) => [
-            ...prevUsers,
-            user,
-        ])
+  // useEffect(() => {
+  //   console.log(users)
+  // }, [removeUser]);
+  return (
+    <>
+      <Header/>
+      <main className="management">
+        <div className="container">
+          <Button
+            type="button"
+            classBtn="management__btn-add-user"
+            text="Создать нового пользователя"
+            onClickBtn={() => handleOpenModalAddUser()}
+          />
 
-        updateOpenForm((draft) => {
-            draft.open_form = false
-        })
-    }
+          <UsersList
+            users={users}
+            handleOpenModal={handleOpenModalEditUser}
+            handleOpenModalConfirm={handleOpenModalRemoveUser}
+          />
+        </div>
 
-    // const editUser = (): void => {
-    //
-    // }
-    //
-    // const removeUser = (): void => {
-    //
-    // }
+      </main>
+      <Footer/>
 
-    return (
-        <>
-            <Header/>
-            <main className="main">
-                <div className="main__btn-add-user" onClick={openFormAddUser}>Создать нового пользователя</div>
-                {openForm ? <UserForm addUser={addUser} handleCloseForm={handleCloseForm}/> : ''}
-                <UsersList users={users}/>
-            </main>
-            <Footer/>
-        </>
-    )
+      {showModal.show_modal_add ?
+        <ModalUser
+          title="Добавление нового пользователя"
+          textBtn="Добавить"
+          getName={getName}
+          getEmail={getEmail}
+          getPhone={getPhone}
+          actionUser={addUser}
+          handleCloseModal={handleCloseModalAddUser}
+        /> : ''}
+
+      {showModal.show_modal_edit ?
+        <ModalUser
+          title="Редактирование данных"
+          textBtn="Изменить"
+          editUserData={editUserData}
+          getName={getName}
+          getEmail={getEmail}
+          getPhone={getPhone}
+          actionUser={editUser}
+          handleCloseModal={handleCloseModalEditUser}
+        /> : ''}
+
+      {showModal.show_modal_remove ?
+        <ModalConfirm
+          removeUserData={removeUserData}
+          actionRemove={removeUser}
+          handleCloseModal={handleCloseModalRemoveUser}
+        /> : ''}
+    </>
+  )
 }
 
 export default UserManagement
