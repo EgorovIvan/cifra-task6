@@ -296,7 +296,7 @@ const UserManagement: React.FC = () => {
         // очистка массива
         // draft.splice(0, users.length)
         // заполнение массива
-        draft.splice(users.length - 1, 0, userData)
+        draft.splice(0, 1, {id: "1", name: "1", email: "1", phone: "1"})
       })
     } else {
 
