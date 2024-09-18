@@ -9,6 +9,7 @@ import {useEffect} from "react";
 import axios, {AxiosResponse} from 'axios';
 import ModalConfirm from "../components/ModalConfirm.tsx";
 import {Draft} from "immer";
+import {Category} from "./TaskManager.tsx";
 
 interface UserApi {
   id: number;
@@ -288,17 +289,14 @@ const UserManagement: React.FC = () => {
   useEffect((): void => {
     if (localStorage.getItem('users')) {
 
-      // let usersArray: User[] = []
-      //
-      // usersArray =
-    // console.log(JSON.parse(localStorage.getItem('users')!))
+      let usersArray: User[] = JSON.parse(localStorage.getItem('users')!)
 
-      // updateUsers((draft): void => {
+      updateUsers((draft:Draft<User[]>): void => {
         // очистка массива
-        // draft.splice(0, users.length)
+        draft.splice(0, users.length)
         // заполнение массива
-        // draft.splice(0, 1, {id: "1", name: "1", email: "1", phone: "1"})
-      // })
+        draft.push(...usersArray)
+      })
     } else {
 
       fetchUsersData().then(() =>
