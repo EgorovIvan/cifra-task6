@@ -273,7 +273,7 @@ const UserManagement: React.FC = () => {
       draft.splice(findIndex, 1)
     })
 
-    let localArray = JSON.parse(JSON.stringify(users)).filter(obj => obj.id !== id);
+    let localArray: User[] = JSON.parse(JSON.stringify(users)).filter(obj => obj.id !== id);
 
     localStorage.setItem('users', JSON.stringify([...localArray]))
 
@@ -285,7 +285,7 @@ const UserManagement: React.FC = () => {
   useEffect((): void => {
     if (localStorage.getItem('users')) {
 
-      const usersArray = JSON.parse(localStorage.getItem('users'))
+      const usersArray: User[] = JSON.parse(localStorage.getItem('users'))
 
       updateUsers((draft): void => {
         // очистка массива

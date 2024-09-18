@@ -299,7 +299,7 @@ const TaskManager: React.FC = () => {
 
     if (localStorage.getItem('categories')) {
 
-      const categoriesArray = JSON.parse(localStorage.getItem('categories'))
+      const categoriesArray: Category[] = JSON.parse(localStorage.getItem('categories'))
 
       updateCategories((draft): void => {
         // очистка массива
