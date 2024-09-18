@@ -290,10 +290,11 @@ const UserManagement: React.FC = () => {
       // let usersArray: User[] = []
       //
       // usersArray =
+    console.log(JSON.parse(localStorage.getItem('users')))
 
       updateUsers((draft): void => {
         // очистка массива
-        draft.splice(0, users.length)
+        // draft.splice(0, users.length)
         // заполнение массива
         draft.push(...JSON.parse(localStorage.getItem('users')))
       })
@@ -309,7 +310,7 @@ const UserManagement: React.FC = () => {
     }
 
   }, []);
-
+  console.log(users)
   return (
     <>
       <Header/>
