@@ -285,7 +285,7 @@ const UserManagement: React.FC = () => {
   useEffect((): void => {
     if (localStorage.getItem('users')) {
 
-      const usersArray: User[] = JSON.parse(localStorage.getItem('users'))
+      const usersArray: never = JSON.parse(localStorage.getItem('users'))
 
       updateUsers((draft): void => {
         // очистка массива
