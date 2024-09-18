@@ -175,10 +175,12 @@ const UserManagement: React.FC = () => {
     if (find) {
 
       updateEditUserData((draft): void => {
-        draft.id = find.id
-        draft.name = find.name
-        draft.email = find.email
-        draft.phone = find.phone
+        if (draft) {
+          draft.id = find.id
+          draft.name = find.name
+          draft.email = find.email
+          draft.phone = find.phone
+        }
       })
 
       updateUserData((draft): void => {
@@ -285,13 +287,15 @@ const UserManagement: React.FC = () => {
   useEffect((): void => {
     if (localStorage.getItem('users')) {
 
-      const usersArray: never = JSON.parse(localStorage.getItem('users'))
+      // let usersArray: User[] = []
+      //
+      // usersArray =
 
       updateUsers((draft): void => {
         // очистка массива
         draft.splice(0, users.length)
         // заполнение массива
-        draft.push(...usersArray)
+        draft.push(...JSON.parse(localStorage.getItem('users')))
       })
     } else {
 
