@@ -4,10 +4,11 @@ import {Category} from "../pages/TaskManager.tsx";
 import FormAdd from "./FormAdd.tsx";
 import {v4 as uuid} from 'uuid';
 import {useImmer} from "use-immer";
+import {Draft} from "immer";
 
 interface Props {
   categories: Category[];
-  updateCategories: (p: (draft) => void) => void;
+  updateCategories: (p: (draft:Draft<Category[]>) => void) => void;
 }
 
 const CategoriesList: React.FC<Props> = (Props) => {
@@ -27,7 +28,7 @@ const CategoriesList: React.FC<Props> = (Props) => {
   })
 
   /* Получить имя категории */
-  const getNameCategory = (name): void => {
+  const getNameCategory = (name: string): void => {
 
     updateCategory((draft): void => {
       draft.name = name

@@ -59,7 +59,7 @@ const ModalUser: React.FC<Props> = (Props) => {
             type="button"
             classBtn="modal-user__btn"
             text={Props.textBtn}
-            onClickBtn={() => Props.actionUser("id" in Props.editUserData ? Props.editUserData.id : '')}
+            onClickBtn={() => Props.actionUser(Props.editUserData ? Props.editUserData.id : '')}
           />
 
         </form>

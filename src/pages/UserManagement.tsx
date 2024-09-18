@@ -8,6 +8,7 @@ import {v4 as uuid} from 'uuid';
 import {useEffect} from "react";
 import axios, {AxiosResponse} from 'axios';
 import ModalConfirm from "../components/ModalConfirm.tsx";
+import {Draft} from "immer";
 
 interface UserApi {
   id: number;
@@ -63,9 +64,9 @@ const UserManagement: React.FC = () => {
 
       const responseData: UserApi = response.data;
 
-      const initialUsersList = []
+      const initialUsersList: any[] = []
 
-      for (let item of responseData) {
+      for (let item: any of responseData) {
 
         const obj: User = {
           id: item.id.toString(),
@@ -77,7 +78,7 @@ const UserManagement: React.FC = () => {
         initialUsersList.push(obj)
       }
 
-      updateUsers((draft): void => {
+      updateUsers((draft: Draft<User[]>): void => {
         draft.push(...initialUsersList)
       })
 
@@ -88,11 +89,11 @@ const UserManagement: React.FC = () => {
       if (axios.isAxiosError(error)) {
         // Handle Axios-specific errors
 
-        console.error("Axios error:", error.message);
+        console.error("Axios error:", (error as Error).message);
       } else {
         // Handle general errors
 
-        console.error("General error:", error.message);
+        console.error("General error:", (error as Error).message);
       }
     }
   };
@@ -105,7 +106,7 @@ const UserManagement: React.FC = () => {
     })
 
     /* генерация id */
-    updateUserData((draft): void => {
+    updateUserData((draft: Draft<User>): void => {
       draft.id = uuid()
     })
 
@@ -121,7 +122,7 @@ const UserManagement: React.FC = () => {
   }
 
   /* Получить имя нового пользователя из формы */
-  const getName = (name): void => {
+  const getName = (name: string): void => {
 
     updateUserData((draft): void => {
       draft.name = name
@@ -130,7 +131,7 @@ const UserManagement: React.FC = () => {
   }
 
   /* Получить email нового пользователя из формы */
-  const getEmail = (email): void => {
+  const getEmail = (email: string): void => {
 
     updateUserData((draft) => {
       draft.email = email
@@ -139,9 +140,9 @@ const UserManagement: React.FC = () => {
   }
 
   /* Получить номер телефона нового пользователя из формы */
-  const getPhone = (phone): void => {
+  const getPhone = (phone: string): void => {
 
-    updateUserData((draft): void => {
+    updateUserData((draft: Draft<User>): void => {
       draft.phone = phone
     })
 
@@ -150,7 +151,7 @@ const UserManagement: React.FC = () => {
   /* Добавить нового пользователя */
   const addUser = (): void => {
 
-    updateUsers((draft): void => {
+    updateUsers((draft: Draft<User[]>): void => {
       draft.push(userData)
     })
 
@@ -170,11 +171,11 @@ const UserManagement: React.FC = () => {
       draft.show_modal_edit = true
     })
 
-    const find = users.find((item) => item.id === id)
+    const find = users.find((item: any) => item.id === id)
 
     if (find) {
 
-      updateEditUserData((draft): void => {
+      updateEditUserData((draft: Draft<User>): void => {
         if (draft) {
           draft.id = find.id
           draft.name = find.name
@@ -183,7 +184,7 @@ const UserManagement: React.FC = () => {
         }
       })
 
-      updateUserData((draft): void => {
+      updateUserData((draft: Draft<User>): void => {
         draft.id = find.id
         draft.name = find.name
         draft.email = find.email
@@ -206,9 +207,9 @@ const UserManagement: React.FC = () => {
 
   const editUser = (id: string): void => {
 
-    const findIndex: number = users.findIndex((obj) => obj.id === id)
+    const findIndex: number = users.findIndex((obj: any) => obj.id === id)
 
-    updateUsers((draft): void => {
+    updateUsers((draft: Draft<User[]>): void => {
       draft.splice(findIndex, 1, userData)
     })
 
@@ -216,7 +217,7 @@ const UserManagement: React.FC = () => {
     /* В зависимости от вашей ситуации вы можете сделать глубокую копию, чтобы удалить ссылку на хранилище. */
     let localArray = JSON.parse(JSON.stringify(users));
 
-    localArray.map((obj) => {
+    localArray.map((obj: any): void => {
 
       // return Object.assign(user, modalUser.value);
       if (obj.id === id) {
@@ -241,12 +242,12 @@ const UserManagement: React.FC = () => {
       draft.show_modal_remove = true
     })
 
-    const find = users.find((item) => item.id === id)
+    const find = users.find((item: any) => item.id === id)
 
     /* Заполнить state всеми данными для мягкого удаления*/
     if (find) {
 
-      updateRemoveUserData((draft): void => {
+      updateRemoveUserData((draft: Draft<User>): void => {
         draft.id = find.id
         draft.name = find.name
         draft.email = find.email
@@ -269,7 +270,7 @@ const UserManagement: React.FC = () => {
   /* Удаление пользователя */
   const removeUser = (id: string): void => {
 
-    const findIndex: number = users.findIndex((obj) => obj.id === id)
+    const findIndex: number = users.findIndex((obj: any) => obj.id === id)
 
     updateUsers((draft): void => {
       draft.splice(findIndex, 1)

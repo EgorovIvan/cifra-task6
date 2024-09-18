@@ -3,6 +3,7 @@ import {Category, Task} from "../pages/TaskManager.tsx";
 import ModalDefault from "./ModalDefault.tsx";
 import FormEdit from "./FormEdit.tsx";
 import {useState} from "react";
+import {Draft} from "immer";
 
 interface Props {
   index: number;
@@ -10,7 +11,7 @@ interface Props {
   task: Task;
   categories: Category[];
   setResize: (b: boolean) => void;
-  updateCategories: (p: (draft) => void) => void;
+  updateCategories: (p: (draft: Draft<Category[]>) => void) => void;
 }
 
 const TaskItem: React.FC<Props> = (Props) => {

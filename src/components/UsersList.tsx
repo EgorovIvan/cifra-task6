@@ -4,8 +4,8 @@ import {User} from "../pages/UserManagement.tsx";
 
 interface Props {
   users: User[];
-  handleOpenModal: (id) => void;
-  handleOpenModalConfirm: (id) => void;
+  handleOpenModal: (id: string) => void;
+  handleOpenModalConfirm: (id: string) => void;
 }
 
 const UsersList: React.FC<Props> = (Props) => {

@@ -2,12 +2,13 @@ import * as React from "react";
 import TaskItem from "./TaskItem.tsx";
 import {Category, Task} from "../pages/TaskManager.tsx";
 import {useState} from "react";
+import {Draft} from "immer";
 
 interface Props {
   indexCategory: number;
   tasks: Task[];
   categories: Category[];
-  updateCategories: (p: (draft) => void) => void;
+  updateCategories: (p: (draft: Draft<Category[]>) => void) => void;
 }
 
 const TasksList: React.FC<Props> = (Props) => {

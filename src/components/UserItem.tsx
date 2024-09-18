@@ -3,8 +3,8 @@ import {User} from "../pages/UserManagement.tsx";
 
 interface Props {
   item: User;
-  handleOpenModal: (id) => void;
-  handleOpenModalConfirm: (id) => void;
+  handleOpenModal: (id: string) => void;
+  handleOpenModalConfirm: (id: string) => void;
 }
 
 const UserItem: React.FC<Props> = ({item, handleOpenModal, handleOpenModalConfirm}: Props) => {

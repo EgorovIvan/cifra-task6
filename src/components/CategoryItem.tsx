@@ -5,12 +5,13 @@ import FormAdd from "./FormAdd.tsx";
 import Settings from "./Settings.tsx";
 import {useImmer} from "use-immer";
 import {v4 as uuid} from 'uuid';
+import {Draft} from "immer";
 
 interface Props {
   index: number;
   category: Category;
   categories: Category[];
-  updateCategories: (p: (draft) => void) => void;
+  updateCategories: (p: (draft: Draft<Category[]>) => void) => void;
 }
 
 const CategoryItem: React.FC<Props> = (Props) => {
@@ -52,7 +53,7 @@ const CategoryItem: React.FC<Props> = (Props) => {
       draft.splice(Props.index, 1)
     })
 
-    let localArray = JSON.parse(JSON.stringify(Props.categories)).filter(obj => obj.guid !== guid);
+    let localArray = JSON.parse(JSON.stringify(Props.categories)).filter((obj: any) => obj.guid !== guid);
 
     localStorage.setItem('categories', JSON.stringify([...localArray]))
 
@@ -83,7 +84,7 @@ const CategoryItem: React.FC<Props> = (Props) => {
   }
 
   /* Получить имя категории */
-  const getNameTask = (name): void => {
+  const getNameTask = (name: string): void => {
 
     updateTask((draft): void => {
       draft.guid = uuid()
@@ -103,7 +104,7 @@ const CategoryItem: React.FC<Props> = (Props) => {
 
       let localArray = JSON.parse(JSON.stringify(Props.categories))
 
-      localArray.map((obj) => {
+      localArray.map((obj: any): void => {
         if (obj.guid === Props.category.guid) {
           obj.tasks.push(task)
         }
