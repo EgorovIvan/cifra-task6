@@ -290,13 +290,13 @@ const UserManagement: React.FC = () => {
       // let usersArray: User[] = []
       //
       // usersArray =
-    console.log(JSON.parse(localStorage.getItem('users')))
+    // console.log(JSON.parse(localStorage.getItem('users')))
 
       updateUsers((draft): void => {
         // очистка массива
         // draft.splice(0, users.length)
         // заполнение массива
-        draft.splice(0, 1, {id: "1", name: "1", email: "1", phone: "1"})
+        // draft.splice(0, 1, {id: "1", name: "1", email: "1", phone: "1"})
       })
     } else {
 
