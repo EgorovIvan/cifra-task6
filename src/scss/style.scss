@@ -1,13 +1,21 @@
 @import 'reset';
 @import "var";
 @import 'global';
+
 @import "header";
 @import "main";
-@import "management";
 @import "footer";
+@import "management";
+@import "task-manager";
+@import "categories";
+@import "tasks";
+
 @import "modal-user";
 @import "modal-confirm";
+@import "form-add";
+@import "form-edit";
 @import "input-box";
+@import "settings";
 
 
 

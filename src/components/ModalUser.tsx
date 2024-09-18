@@ -1,8 +1,5 @@
-// import Input from "./Input.tsx";
 import Button from "./Button.tsx";
-import {useEffect} from "react";
 import * as React from "react";
-import {useImmer} from "use-immer";
 import Input from "./Input.tsx";
 import {User} from "../pages/UserManagement.tsx";
 
@@ -10,11 +7,11 @@ import {User} from "../pages/UserManagement.tsx";
 interface Props {
   title: string;
   textBtn: string;
-  editUserData?: User;
+  editUserData?: User | undefined;
   getName: (name:string) => void;
   getEmail: (email:string) => void;
   getPhone: (phone:string) => void;
-  actionUser: (id?:string) => void;
+  actionUser: (id?:string | undefined) => void;
   handleCloseModal: () => void;
 }
 
@@ -31,6 +28,7 @@ const ModalUser: React.FC<Props> = (Props) => {
 
           <Input
             type="text"
+            classInp="input-box__field"
             name="user"
             placeholder="Имя пользователя"
             inputValue={Props.editUserData?.name}
@@ -41,24 +39,20 @@ const ModalUser: React.FC<Props> = (Props) => {
 
           <Input
             type="text"
+            classInp="input-box__field"
             name="email"
             placeholder="Email"
             inputValue={Props.editUserData?.email}
             updateValue={Props.getEmail}
-            // updateValue={updateInputVznNumber}
-            // validateValue={inputVznNumber.errorField}
-            // isNull={inputVznNumber.isNull}
           />
 
           <Input
             type="text"
+            classInp="input-box__field"
             name="phone"
             placeholder="Phone"
             inputValue={Props.editUserData?.phone}
             updateValue={Props.getPhone}
-            // updateValue={updateInputVznNumber}
-            // validateValue={inputVznNumber.errorField}
-            // isNull={inputVznNumber.isNull}
           />
 
           <Button

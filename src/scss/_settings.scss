@@ -1,0 +1,35 @@
+.settings {
+  position: absolute;
+  bottom: -2.8rem;
+  right: -9.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 12rem;
+  height: 2.5rem;
+  color: #e55b3c;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 100%;
+  letter-spacing: 0%;
+  text-align: left;
+  border: none;
+  border-radius: 0.5rem;
+  background: $white;
+  cursor: pointer;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  z-index: 11;
+}
+
+.settings:hover,
+.settings:focus-visible{
+  background: $outline-gray-300-light;
+}
+
+
+
+
+
+
+
+

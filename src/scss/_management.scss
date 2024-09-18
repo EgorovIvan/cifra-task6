@@ -4,8 +4,7 @@
   align-items: start;
   justify-content: center;
   max-width: 90rem;
-  //height: 48rem;
-  min-height: calc(100vh - 25rem);
+  min-height: calc(100vh - 10rem);
   padding-top: 2.5rem;
 
   & .container {
@@ -29,6 +28,7 @@
     border: none;
     border-radius: 5rem;
     background: rgb(197, 138, 70);
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     cursor: pointer;
   }
 
@@ -103,16 +103,28 @@
     width: 2.75rem;
     height: 2.75rem;
     cursor: pointer;
-    background: url(../assets/edit_2.png) no-repeat;
+    background: url(../assets/user_management/edit_2.png) no-repeat;
     background-size: contain;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
   }
+
+  &__row-img-edit:hover {
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  }
+
 
   &__row-img-remove {
     width: 3rem;
     height: 3rem;
     cursor: pointer;
-    background: url(../assets/delete_2.png) no-repeat;
+    background: url(../assets/user_management/delete_2.png) no-repeat;
     background-size: contain;
+    transition: 1s;
+  }
+
+  &__row-img-remove:hover,
+  &__row-img-remove:focus-visible {
+    transform: scale(1.2);
   }
 }
 

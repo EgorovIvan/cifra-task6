@@ -2,20 +2,19 @@ import * as React from "react";
 
 interface Props {
   type: string;
+  classInp: string;
   name: string;
   placeholder: string;
   inputValue?: string;
   updateValue: (name:string) => void;
-  // validateValue: boolean;
-  // isNull: boolean;
 }
 const Input: React.FC<Props> = (Props) => {
 
   return (
     <div className="input-box">
       <input
-        className='input-box__field '
         type={Props.type}
+        className={Props.classInp}
         name={Props.name}
         id={Props.name}
         placeholder={Props.placeholder}

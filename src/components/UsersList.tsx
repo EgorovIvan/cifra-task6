@@ -31,9 +31,7 @@ const UsersList: React.FC<Props> = (Props) => {
         ))}
       </ul>
 
-
     </>
-
   )
 }
 

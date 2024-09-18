@@ -9,7 +9,6 @@ import {useEffect} from "react";
 import axios, {AxiosResponse} from 'axios';
 import ModalConfirm from "../components/ModalConfirm.tsx";
 
-
 interface UserApi {
   id: number;
   name: string;
@@ -67,6 +66,7 @@ const UserManagement: React.FC = () => {
       const initialUsersList = []
 
       for (let item of responseData) {
+
         const obj: User = {
           id: item.id.toString(),
           name: item.name,
@@ -77,7 +77,7 @@ const UserManagement: React.FC = () => {
         initialUsersList.push(obj)
       }
 
-      updateUsers((draft) => {
+      updateUsers((draft): void => {
         draft.push(...initialUsersList)
       })
 
@@ -99,81 +99,95 @@ const UserManagement: React.FC = () => {
 
   /* Открыть форму добавления пользователя */
   const handleOpenModalAddUser = (): void => {
-    updateShowModal((draft) => {
+
+    updateShowModal((draft): void => {
       draft.show_modal_add = true
     })
 
     /* генерация id */
-    updateUserData(draft => {
+    updateUserData((draft): void => {
       draft.id = uuid()
     })
+
   }
 
   /* Закрыть форму добавления пользователя */
   const handleCloseModalAddUser = (): void => {
-    updateShowModal((draft) => {
+
+    updateShowModal((draft): void => {
       draft.show_modal_add = false
     })
+
   }
 
   /* Получить имя нового пользователя из формы */
   const getName = (name): void => {
-    updateUserData((draft) => {
+
+    updateUserData((draft): void => {
       draft.name = name
     })
+
   }
 
   /* Получить email нового пользователя из формы */
   const getEmail = (email): void => {
+
     updateUserData((draft) => {
       draft.email = email
     })
+
   }
 
   /* Получить номер телефона нового пользователя из формы */
   const getPhone = (phone): void => {
-    updateUserData((draft) => {
+
+    updateUserData((draft): void => {
       draft.phone = phone
     })
+
   }
 
   /* Добавить нового пользователя */
   const addUser = (): void => {
 
-    updateUsers((draft) => {
+    updateUsers((draft): void => {
       draft.push(userData)
     })
 
     localStorage.setItem('users', JSON.stringify([...users, userData]))
 
     /* закрытие модального окна */
-    updateShowModal((draft) => {
+    updateShowModal((draft): void => {
       draft.show_modal_add = false
     })
+
   }
 
   /* Открыть форму изменения данных пользователя */
   const handleOpenModalEditUser = (id: string): void => {
-    updateShowModal((draft) => {
+
+    updateShowModal((draft): void => {
       draft.show_modal_edit = true
     })
 
     const find = users.find((item) => item.id === id)
 
     if (find) {
-      updateEditUserData((draft) => {
+
+      updateEditUserData((draft): void => {
         draft.id = find.id
         draft.name = find.name
         draft.email = find.email
         draft.phone = find.phone
       })
 
-      updateUserData((draft) => {
+      updateUserData((draft): void => {
         draft.id = find.id
         draft.name = find.name
         draft.email = find.email
         draft.phone = find.phone
       })
+
     } else {
       alert("Ошибка в данных")
     }
@@ -181,16 +195,18 @@ const UserManagement: React.FC = () => {
 
   /* Закрыть форму изменения данных пользователя */
   const handleCloseModalEditUser = (): void => {
-    updateShowModal((draft) => {
+
+    updateShowModal((draft): void => {
       draft.show_modal_edit = false
     })
+
   }
 
   const editUser = (id: string): void => {
 
     const findIndex: number = users.findIndex((obj) => obj.id === id)
 
-    updateUsers((draft) => {
+    updateUsers((draft): void => {
       draft.splice(findIndex, 1, userData)
     })
 
@@ -199,6 +215,7 @@ const UserManagement: React.FC = () => {
     let localArray = JSON.parse(JSON.stringify(users));
 
     localArray.map((obj) => {
+
       // return Object.assign(user, modalUser.value);
       if (obj.id === id) {
         obj.name = userData.name
@@ -209,14 +226,16 @@ const UserManagement: React.FC = () => {
 
     localStorage.setItem('users', JSON.stringify([...localArray]))
 
-    updateShowModal((draft) => {
+    updateShowModal((draft): void => {
       draft.show_modal_edit = false
     })
+
   }
 
   /* Открыть форму удаления данных пользователя */
   const handleOpenModalRemoveUser = (id: string): void => {
-    updateShowModal((draft) => {
+
+    updateShowModal((draft): void => {
       draft.show_modal_remove = true
     })
 
@@ -224,7 +243,8 @@ const UserManagement: React.FC = () => {
 
     /* Заполнить state всеми данными для мягкого удаления*/
     if (find) {
-      updateRemoveUserData((draft) => {
+
+      updateRemoveUserData((draft): void => {
         draft.id = find.id
         draft.name = find.name
         draft.email = find.email
@@ -237,9 +257,11 @@ const UserManagement: React.FC = () => {
 
   /* Закрыть форму удаления данных пользователя */
   const handleCloseModalRemoveUser = (): void => {
-    updateShowModal((draft) => {
+
+    updateShowModal((draft): void => {
       draft.show_modal_remove = false
     })
+
   }
 
   /* Удаление пользователя */
@@ -247,7 +269,7 @@ const UserManagement: React.FC = () => {
 
     const findIndex: number = users.findIndex((obj) => obj.id === id)
 
-    updateUsers((draft) => {
+    updateUsers((draft): void => {
       draft.splice(findIndex, 1)
     })
 
@@ -255,7 +277,7 @@ const UserManagement: React.FC = () => {
 
     localStorage.setItem('users', JSON.stringify([...localArray]))
 
-    updateShowModal((draft) => {
+    updateShowModal((draft): void => {
       draft.show_modal_remove = false
     })
   }
@@ -265,7 +287,7 @@ const UserManagement: React.FC = () => {
 
       const usersArray = JSON.parse(localStorage.getItem('users'))
 
-      updateUsers((draft) => {
+      updateUsers((draft): void => {
         // очистка массива
         draft.splice(0, users.length)
         // заполнение массива
@@ -273,7 +295,7 @@ const UserManagement: React.FC = () => {
       })
     } else {
 
-      fetchUsersData().then(r =>
+      fetchUsersData().then(() =>
         console.log("Данные загружены")
       ).catch(
         e => {
@@ -284,9 +306,6 @@ const UserManagement: React.FC = () => {
 
   }, []);
 
-  // useEffect(() => {
-  //   console.log(users)
-  // }, [removeUser]);
   return (
     <>
       <Header/>

@@ -1,4 +1,4 @@
-import {Link} from "react-router-dom";
+import * as React from "react";
 
 const Footer: React.FC = () => {
 

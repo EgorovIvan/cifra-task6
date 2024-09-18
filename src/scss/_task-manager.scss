@@ -1,0 +1,46 @@
+.task-manager {
+  position: relative;
+  display: grid;
+  grid-template-columns: 16.25rem 1fr;
+  max-width: 90rem;
+  height: calc(100vh - 5rem);
+  background: url(../assets/task_manager/bg-task_2.jpg) no-repeat;
+  background-size: cover;
+
+  &__nav {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+    width: 16.25rem;
+    height: 100%;
+    padding: 1.5rem 1rem;
+    background: rgba(240, 46, 170, 0.2);
+    box-shadow: rgba(240, 46, 170, 0.2) 5px 5px, rgba(240, 46, 170, 0.17) 10px 10px, rgba(240, 46, 170, 0.15) 15px 15px, rgba(240, 46, 170, 0.1) 20px 20px, rgba(240, 46, 170, 0.05) 25px 25px;
+  }
+
+  & .nav-item {
+
+    &__title {
+      color: $bg-green-80;
+      //font-size: 1.25rem;
+      //font-weight: 500;
+      //line-height: 100%;
+    }
+  }
+
+  &__board {
+    width: 100%;
+    height: 100%;
+    padding-bottom: 0.5rem;
+    overflow: hidden;
+  }
+}
+
+
+
+
+
+
+
+

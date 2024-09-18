@@ -5,7 +5,7 @@ import {User} from "../pages/UserManagement.tsx";
 
 interface Props {
   removeUserData: User;
-  actionRemove: (id?:string) => void;
+  actionRemove: (id?:string | undefined) => void;
   handleCloseModal: () => void;
 }
 
