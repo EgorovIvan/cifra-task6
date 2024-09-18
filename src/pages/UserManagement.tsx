@@ -9,7 +9,6 @@ import {useEffect} from "react";
 import axios, {AxiosResponse} from 'axios';
 import ModalConfirm from "../components/ModalConfirm.tsx";
 import {Draft} from "immer";
-import {Category} from "./TaskManager.tsx";
 
 interface UserApi {
   id: number;
