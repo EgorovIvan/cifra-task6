@@ -62,7 +62,7 @@ const UserManagement: React.FC = () => {
 
       const response: AxiosResponse = await axios.get('https://jsonplaceholder.typicode.com/users');
 
-      const responseData: UserApi = response.data;
+      const responseData: UserApi[] = response.data;
 
       const initialUsersList: any[] = []
 
@@ -175,7 +175,7 @@ const UserManagement: React.FC = () => {
 
     if (find) {
 
-      updateEditUserData((draft: Draft<User>): void => {
+      updateEditUserData((draft: Draft<any>): void => {
         if (draft) {
           draft.id = find.id
           draft.name = find.name
@@ -184,7 +184,7 @@ const UserManagement: React.FC = () => {
         }
       })
 
-      updateUserData((draft: Draft<User>): void => {
+      updateUserData((draft: Draft<any>): void => {
         draft.id = find.id
         draft.name = find.name
         draft.email = find.email

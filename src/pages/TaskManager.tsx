@@ -2,6 +2,7 @@ import Header from "../components/Header.tsx";
 import {useImmer} from "use-immer";
 import CategoriesList from "../components/CategoriesList.tsx";
 import {useEffect} from "react";
+import {Draft} from "immer";
 
 
 export interface Task {
@@ -299,9 +300,9 @@ const TaskManager: React.FC = () => {
 
     if (localStorage.getItem('categories')) {
 
-      const categoriesArray: Category[] | null = JSON.parse(localStorage.getItem('categories'))
+      const categoriesArray: Category[] = JSON.parse(localStorage.getItem('categories')!)
 
-      updateCategories((draft): void => {
+      updateCategories((draft:Draft<Category[]>): void => {
         // очистка массива
         draft.splice(0, categories.length)
         // заполнение массива
