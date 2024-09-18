@@ -275,7 +275,7 @@ const UserManagement: React.FC = () => {
       draft.splice(findIndex, 1)
     })
 
-    let localArray: User[] = JSON.parse(JSON.stringify(users)).filter(obj => obj.id !== id);
+    let localArray: User[] = JSON.parse(JSON.stringify(users)).filter((obj: any) => obj.id !== id);
 
     localStorage.setItem('users', JSON.stringify([...localArray]))
 
