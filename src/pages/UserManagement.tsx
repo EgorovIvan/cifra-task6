@@ -66,7 +66,7 @@ const UserManagement: React.FC = () => {
 
       const initialUsersList: any[] = []
 
-      for (let item: any of responseData) {
+      for (let item: User in responseData) {
 
         const obj: User = {
           id: item.id.toString(),
@@ -171,11 +171,11 @@ const UserManagement: React.FC = () => {
       draft.show_modal_edit = true
     })
 
-    const find: User = users.find((item: any) => item.id === id)
+    const find: User = users.find((item: User) => item.id === id)
 
     if (find) {
 
-      updateEditUserData((draft: Draft<any>): void => {
+      updateEditUserData((draft: Draft<User>): void => {
         if (draft) {
           draft.id = find.id
           draft.name = find.name
