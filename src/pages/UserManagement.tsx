@@ -66,9 +66,9 @@ const UserManagement: React.FC = () => {
 
       const initialUsersList: any[] = []
 
-      for (let item: User in responseData) {
+      for (let item: UserApi of responseData) {
 
-        const obj: User = {
+        const obj: any = {
           id: item.id.toString(),
           name: item.name,
           email: item.email,
@@ -171,11 +171,11 @@ const UserManagement: React.FC = () => {
       draft.show_modal_edit = true
     })
 
-    const find: User = users.find((item: User) => item.id === id)
+    const find: any = users.find((item: any) => item.id === id)
 
     if (find) {
 
-      updateEditUserData((draft: Draft<User>): void => {
+      updateEditUserData((draft: Draft<any>): void => {
         if (draft) {
           draft.id = find.id
           draft.name = find.name
@@ -242,12 +242,12 @@ const UserManagement: React.FC = () => {
       draft.show_modal_remove = true
     })
 
-    const find: User = users.find((item: any) => item.id === id)
+    const find: any = users.find((item: any) => item.id === id)
 
     /* Заполнить state всеми данными для мягкого удаления*/
     if (find) {
 
-      updateRemoveUserData((draft: Draft<User>): void => {
+      updateRemoveUserData((draft: Draft<any>): void => {
         draft.id = find.id
         draft.name = find.name
         draft.email = find.email
