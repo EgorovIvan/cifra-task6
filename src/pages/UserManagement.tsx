@@ -62,11 +62,11 @@ const UserManagement: React.FC = () => {
 
       const response: AxiosResponse = await axios.get('https://jsonplaceholder.typicode.com/users');
 
-      const responseData: UserApi[] = response.data;
+      const responseData: any = response.data;
 
       const initialUsersList: any[] = []
 
-      for (let item: UserApi of responseData) {
+      for (let item: any of responseData) {
 
         const obj: any = {
           id: item.id.toString(),
