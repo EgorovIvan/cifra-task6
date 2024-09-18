@@ -51,7 +51,7 @@ const UserManagement: React.FC = () => {
 
   // возможно лишние стейты
   const [userData, updateUserData] = useImmer<User>({id: "", name: "", email: "", phone: ""});
-  const [editUserData, updateEditUserData] = useImmer<User>({id: "", name: "", email: "", phone: ""});
+  const [editUserData, updateEditUserData] = useImmer<User | undefined>({id: "", name: "", email: "", phone: ""});
   const [removeUserData, updateRemoveUserData] = useImmer<User>({id: "", name: "", email: "", phone: ""});
 
   /* GET - запрос */
@@ -282,7 +282,7 @@ const UserManagement: React.FC = () => {
     })
   }
 
-  useEffect(() => {
+  useEffect((): void => {
     if (localStorage.getItem('users')) {
 
       const usersArray = JSON.parse(localStorage.getItem('users'))

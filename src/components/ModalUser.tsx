@@ -11,7 +11,7 @@ interface Props {
   getName: (name:string) => void;
   getEmail: (email:string) => void;
   getPhone: (phone:string) => void;
-  actionUser: (id?:string | undefined) => void;
+  actionUser: (id:string) => void;
   handleCloseModal: () => void;
 }
 
@@ -59,7 +59,7 @@ const ModalUser: React.FC<Props> = (Props) => {
             type="button"
             classBtn="modal-user__btn"
             text={Props.textBtn}
-            onClickBtn={() => Props.actionUser(Props.editUserData?.id)}
+            onClickBtn={() => Props.actionUser("id" in Props.editUserData ? Props.editUserData.id : '')}
           />
 
         </form>
