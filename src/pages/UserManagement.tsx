@@ -171,7 +171,7 @@ const UserManagement: React.FC = () => {
       draft.show_modal_edit = true
     })
 
-    const find = users.find((item: any) => item.id === id)
+    const find: User = users.find((item: any) => item.id === id)
 
     if (find) {
 
@@ -242,7 +242,7 @@ const UserManagement: React.FC = () => {
       draft.show_modal_remove = true
     })
 
-    const find = users.find((item: any) => item.id === id)
+    const find: User = users.find((item: any) => item.id === id)
 
     /* Заполнить state всеми данными для мягкого удаления*/
     if (find) {
@@ -291,7 +291,7 @@ const UserManagement: React.FC = () => {
       // let usersArray: User[] = []
       //
       // usersArray =
-    // console.log(JSON.parse(localStorage.getItem('users')))
+    // console.log(JSON.parse(localStorage.getItem('users')!))
 
       // updateUsers((draft): void => {
         // очистка массива
