@@ -10,20 +10,17 @@ interface Props {
 const UserItem: React.FC<Props> = ({item, handleOpenModal, handleOpenModalConfirm}: Props) => {
 
   return (
-      <li className="management__row">
-        <div className="management__row-item">{item.name}</div>
-        <div className="management__row-item">{item.email}</div>
-        <div className="management__row-item">{item.phone}</div>
-        <div className="management__row-item">
-          <div className="management__row-img-wrapper">
-            <div className="management__row-img-edit" onClick={() => handleOpenModal(item.id)}></div>
-          </div>
-
-        </div>
-        <div className="management__row-item">
-          <div className="management__row-img-remove" onClick={() => handleOpenModalConfirm(item.id)}></div>
-        </div>
-      </li>
+    <li className="management__row">
+      <div className="management__row-item">{item.name}</div>
+      <div className="management__row-item">{item.email}</div>
+      <div className="management__row-item">{item.phone}</div>
+      <div className="management__row-item">
+        <div className="management__row-img-edit" onClick={() => handleOpenModal(item.id)}></div>
+      </div>
+      <div className="management__row-item">
+        <div className="management__row-img-remove" onClick={() => handleOpenModalConfirm(item.id)}></div>
+      </div>
+    </li>
   )
 }
 

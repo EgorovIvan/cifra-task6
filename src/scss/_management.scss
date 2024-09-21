@@ -49,6 +49,9 @@
     -moz-border-radius-topleft: 1.25rem;
     -moz-border-radius-topright: 1.25rem;
     background: $white;
+    box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
   }
 
   &__header-item {
@@ -67,6 +70,13 @@
     gap: 0.375rem;
     width: 100%;
     margin-bottom: 3rem;
+
+    opacity: 0;
+    transition: opacity 2s ease-in-out;
+  }
+
+  &__show {
+    opacity: 1;
   }
 
   &__list .management__row:last-child {
@@ -83,6 +93,7 @@
     height: 5.5rem;
     padding-left: 1rem;
     background: $white;
+    box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
   }
 
   &__row-item {
@@ -99,34 +110,49 @@
     justify-content: center;
   }
 
-  &__row-img-edit {
-    width: 2.75rem;
-    height: 2.75rem;
+  &__row-img-edit,
+  &__row-img-remove {
+    position: relative;
+    width: 3.35rem;
+    height: 3.35rem;
+    border-radius: 3.25rem;
     cursor: pointer;
-    background: url(../assets/user_management/edit_2.png) no-repeat;
-    background-size: contain;
     box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
   }
 
-  &__row-img-edit:hover {
-    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  &__row-img-edit::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 2.1rem;
+    height: 2.1rem;
+    background: url(../assets/user_management/edit_2.png) no-repeat;
+    background-size: contain;
   }
 
-
-  &__row-img-remove {
-    width: 3rem;
-    height: 3rem;
-    cursor: pointer;
+  &__row-img-remove::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 2rem;
+    height: 2rem;
     background: url(../assets/user_management/delete_2.png) no-repeat;
     background-size: contain;
-    transition: 1s;
   }
 
+  &__row-img-edit:hover,
+  &__row-img-edit:focus-visible,
   &__row-img-remove:hover,
   &__row-img-remove:focus-visible {
-    transform: scale(1.2);
+    background: $bg-gray-100;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
   }
 }
+
 
 
 

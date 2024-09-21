@@ -9,6 +9,8 @@ import {useEffect} from "react";
 import axios, {AxiosResponse} from 'axios';
 import ModalConfirm from "../components/ModalConfirm.tsx";
 import {Draft} from "immer";
+import {Actions} from "./Home.tsx";
+import Chat from "../components/Chat.tsx";
 
 interface UserApi {
   id: number;
@@ -47,13 +49,20 @@ const UserManagement: React.FC = () => {
   const [showModal, updateShowModal] = useImmer({
     show_modal_add: false,
     show_modal_edit: false,
-    show_modal_remove: false,
+    show_modal_remove: false
   })
 
-  // возможно лишние стейты
   const [userData, updateUserData] = useImmer<User>({id: "", name: "", email: "", phone: ""});
   const [editUserData, updateEditUserData] = useImmer<User | undefined>({id: "", name: "", email: "", phone: ""});
   const [removeUserData, updateRemoveUserData] = useImmer<User>({id: "", name: "", email: "", phone: ""});
+
+  /* actions для чата */
+  const [actionsUser, updateActionsUser] = useImmer<Actions>({
+    status: false,
+    auth: false,
+    register: false,
+    messengerShow: false
+  });
 
   /* GET - запрос */
   const fetchUsersData = async () => {
@@ -285,6 +294,33 @@ const UserManagement: React.FC = () => {
     })
   }
 
+  /* Открыть окно авторизации */
+  const showModalAuth = (): void => {
+
+    updateActionsUser((draft: Draft<Actions>): void => {
+      draft.auth = true
+    })
+
+  }
+
+  /* Открыть окно регистрации */
+  const showModalRegister = (): void => {
+
+    updateActionsUser((draft: Draft<Actions>): void => {
+      draft.register = true
+    })
+
+  }
+
+  /* Открыть окно чата */
+  const showModalMessenger = (): void => {
+
+    updateActionsUser((draft: Draft<Actions>): void => {
+      draft.messengerShow = !draft.messengerShow
+    })
+
+  }
+
   useEffect((): void => {
     if (localStorage.getItem('users')) {
 
@@ -308,10 +344,14 @@ const UserManagement: React.FC = () => {
     }
 
   }, []);
-  console.log(users)
+
   return (
     <>
-      <Header/>
+      <Header
+        status={actionsUser.status}
+        showModalAuth={showModalAuth}
+        showModalRegister={showModalRegister}
+      />
       <main className="management">
         <div className="container">
           <Button
@@ -328,6 +368,8 @@ const UserManagement: React.FC = () => {
           />
         </div>
 
+        <Chat actions={actionsUser} updateActionsUser={updateActionsUser}/>
+        {actionsUser.status ? <div className="chat-btn" onClick={showModalMessenger} ></div> : ''}
       </main>
       <Footer/>
 

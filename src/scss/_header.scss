@@ -49,10 +49,47 @@
     text-align: center;
   }
 
+  &__nav-btn {
+    padding: 0 1.5rem;
+    background: none;
+  }
+
   &__nav-item:hover,
-  &__nav-item:focus-visible {
+  &__nav-item:focus-visible,
+  &__nav-btn:hover,
+  &__nav-btn:focus-visible{
     border-radius: 0.625rem;
     background: rgba(0, 0, 0, 0.25);
+  }
+
+  &__nav-account {
+    position: relative;
+    width: 2.2rem;
+    height: 2.2rem;
+    transition: 1s;
+    background: url(../assets/user.png) no-repeat;
+    background-size: contain;
+    cursor: pointer;
+    align-self: center;
+  }
+
+  //&__nav-account::before {
+  //  content: '';
+  //  position: absolute;
+  //  top: 50%;
+  //  left: 50%;
+  //  transform: translate(-50%, -50%);
+  //  width: 2.2rem;
+  //  height: 2.2rem;
+  //  background: url(../assets/user.png) no-repeat;
+  //  background-size: contain;
+  //  cursor: pointer;
+  //
+  //}
+
+  &__nav-account:hover,
+  &__nav-account:focus-visible {
+    transform: scale(1.2);
   }
 }
 

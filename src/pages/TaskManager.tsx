@@ -3,6 +3,8 @@ import {useImmer} from "use-immer";
 import CategoriesList from "../components/CategoriesList.tsx";
 import {useEffect} from "react";
 import {Draft} from "immer";
+import {Actions} from "./Home.tsx";
+import Chat from "../components/Chat.tsx";
 
 
 export interface Task {
@@ -296,6 +298,41 @@ const TaskManager: React.FC = () => {
 
   const [categories, updateCategories] = useImmer(initialCategoriesList)
 
+  /* actions для чата */
+  const [actionsUser, updateActionsUser] = useImmer<Actions>({
+    status: false,
+    auth: false,
+    register: false,
+    messengerShow: false
+  });
+
+  /* Открыть окно авторизации */
+  const showModalAuth = (): void => {
+
+    updateActionsUser((draft: Draft<Actions>): void => {
+      draft.auth = true
+    })
+
+  }
+
+  /* Открыть окно регистрации */
+  const showModalRegister = (): void => {
+
+    updateActionsUser((draft: Draft<Actions>): void => {
+      draft.register = true
+    })
+
+  }
+
+  /* Открыть окно чата */
+  const showModalMessenger = (): void => {
+
+    updateActionsUser((draft: Draft<Actions>): void => {
+      draft.messengerShow = !draft.messengerShow
+    })
+
+  }
+
   useEffect((): void => {
 
     if (localStorage.getItem('categories')) {
@@ -314,7 +351,11 @@ const TaskManager: React.FC = () => {
 
   return (
     <>
-      <Header/>
+      <Header
+        status={actionsUser.status}
+        showModalAuth={showModalAuth}
+        showModalRegister={showModalRegister}
+      />
       <main className="task-manager">
         <div className="task-manager__nav">
           <div className="nav-item">
@@ -336,6 +377,9 @@ const TaskManager: React.FC = () => {
             updateCategories={updateCategories}
           />
         </div>
+
+        <Chat actions={actionsUser} updateActionsUser={updateActionsUser}/>
+        {actionsUser.status ? <div className="chat-btn" onClick={showModalMessenger} ></div> : ''}
       </main>
     </>
   )

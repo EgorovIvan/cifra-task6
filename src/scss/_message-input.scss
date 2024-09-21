@@ -1,0 +1,33 @@
+.message-input {
+  display: flex;
+  flex: 1;
+
+  & input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 8px;
+  }
+
+  & button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  & button:disabled {
+    background-color: #ccc;
+  }
+
+  & button:hover {
+    color: $bg-green-80;
+    filter: brightness(1.25);
+    transition: filter .2s;
+  }
+}
+
+

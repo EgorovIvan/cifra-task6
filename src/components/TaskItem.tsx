@@ -95,10 +95,10 @@ const TaskItem: React.FC<Props> = (Props) => {
     <li className="tasks__item">
       <h5 className="tasks__item-title">{Props.task.title}</h5>
       <div className="tasks__item-wrapper">
-        <div className={Props.task.completed ? 'tasks__item-led' : 'tasks__item-led-false'}
-             onClick={toggleTaskCompletion}></div>
         <div className="tasks__item-edit" onClick={handleOpenFormTask}></div>
         <div className="tasks__item-remove" onClick={removeTask}></div>
+        <div className={Props.task.completed ? 'tasks__item-led' : 'tasks__item-led-false'}
+             onClick={toggleTaskCompletion}></div>
       </div>
 
       {showForm ?

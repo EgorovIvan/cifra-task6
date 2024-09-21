@@ -1,6 +1,12 @@
 import {Link, NavLink} from "react-router-dom";
+import Button from "./Button.tsx";
 
-const Header: React.FC = () => {
+interface Props {
+  status: boolean;
+  showModalAuth: () => void;
+  showModalRegister: () => void;
+}
+const Header: React.FC<Props> = (Props) => {
 
   return (
     <>
@@ -23,12 +29,14 @@ const Header: React.FC = () => {
                      }>
               <p>Управление пользователями</p>
             </NavLink>
-            <NavLink to="/accounting"
-                     className={({isActive}): string =>
-                       isActive ? "header__nav-item link-active" : "header__nav-item"
-                     }>
-              <p>Вход</p>
-            </NavLink>
+
+            { !Props.status ?
+              <>
+                <Button type="button" classBtn='header__nav-btn btn' text='Вход' onClickBtn={Props.showModalAuth}/>
+                <Button type="button" classBtn='header__nav-btn btn' text='Регистрация' onClickBtn={Props.showModalRegister}/>
+              </> :
+              <div className="header__nav-account"></div>
+            }
           </div>
         </div>
 
