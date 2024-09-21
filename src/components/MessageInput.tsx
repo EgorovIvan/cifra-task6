@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { useState } from 'react';
 
 interface MessageInputProps {
   message: string;
@@ -8,14 +7,6 @@ interface MessageInputProps {
 }
 
 const MessageInput: React.FC<MessageInputProps> = (Props) => {
-  // const [inputValue, setInputValue] = useState('');
-
-  // const handleSend = () => {
-  //   if (inputValue.trim()) {
-  //     onSend(inputValue);
-  //     setInputValue('');
-  //   }
-  // };
 
   return (
     <div className='message-input'>

@@ -5,7 +5,6 @@ import MessageList from "./MessageList.tsx";
 import {Actions} from "../pages/Home.tsx";
 import ModalAuth from "./ModalAuth.tsx";
 import {useImmer} from "use-immer";
-import {User} from "../pages/UserManagement.tsx";
 import {Draft} from "immer";
 
 export interface Message {

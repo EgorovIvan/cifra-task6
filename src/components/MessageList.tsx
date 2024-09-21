@@ -13,7 +13,6 @@ const MessageList: React.FC<Props> = ({ chatLog, username }) => {
       {chatLog.map((message, index) => (
         <div
           key={index}
-          // className='message-item'
           className={`message-list__item ${message.sender === username ? 'user' : ''}`}
         >
           {message.sender + ': ' + message.message}
