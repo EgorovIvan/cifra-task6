@@ -41,7 +41,7 @@ const Chat: React.FC<Props> = (Props) => {
 
 
   useEffect(() => {
-    const socket = new WebSocket('ws://localhost:8080');
+    const socket = new WebSocket('ws://main--cifra-task6.netlify.applocalhost:8080');
     setWs(socket)
 
     socket.onmessage = (event): void => {
